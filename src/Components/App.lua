@@ -6,31 +6,41 @@ local Preview = require(script.Parent.Preview)
 local Sidebar = require(script.Parent.Sidebar)
 local StudioThemeAccessor = require(script.Parent.StudioThemeAccessor)
 
-local e = Roact.createElement
+local createElement = Roact.createElement
 
 local function App()
-	return e(StudioThemeAccessor, {}, {
+	return createElement(StudioThemeAccessor, {}, {
 		function(theme)
-			return e("Frame", {
-				BackgroundColor3 = theme:GetColor("MainBackground", "Default"),
-				Size = UDim2.fromScale(1, 1),
-			}, {
-				Sidebar = e("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.fromScale(0.2, 1),
-				}, {
-					Sidebar = e(Sidebar),
-				}),
+			return createElement("Frame",
+				{
+					BackgroundColor3 = theme:GetColor("MainBackground", "Default"),
+					Size = UDim2.fromScale(1, 1),
+				},
+				{
+					Sidebar = createElement("Frame",
+						{
+							BackgroundTransparency = 1,
+							Size = UDim2.fromScale(1, 1),
+						},
+						{
+							Sidebar = createElement(Sidebar),
+						}
+					),
 
-				Preview = e("Frame", {
-					AnchorPoint = Vector2.new(1, 0),
-					BackgroundTransparency = 1,
-					Position = UDim2.fromScale(1, 0),
-					Size = UDim2.fromScale(0.8, 1),
-				}, {
-					Preview = e(Preview),
-				}),
-			})
+					Preview = createElement("Frame",
+						{
+							AnchorPoint = Vector2.new(1, 0),
+							BackgroundTransparency = 1,
+							Position = UDim2.fromScale(1, 0),
+							Size = UDim2.fromScale(0.8, 1),
+							Visible = false,
+						},
+						{
+							Preview = createElement(Preview),
+						}
+					),
+				}
+			)
 		end,
 	})
 end

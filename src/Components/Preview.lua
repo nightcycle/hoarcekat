@@ -23,9 +23,10 @@ function Preview:init()
 	local display = Instance.new("ScreenGui")
 	display.Name = "HoarcekatDisplay"
 	display.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	display.Parent = CoreGui
 	self.display = display
 
-	self.expand = false
+	self.expand = true
 
 	self.openSelection = function()
 		if self.currentPreview and self.currentPreview.target then
@@ -34,8 +35,8 @@ function Preview:init()
 	end
 
 	self.expandSelection = function()
-		self.expand = not self.expand
-		self.display.Parent = self.expand and CoreGui or nil
+		self.expand = true
+		self.display.Parent = CoreGui
 
 		self:updateDisplay()
 	end
@@ -213,12 +214,12 @@ function Preview:render()
 			Size = UDim2.fromOffset(40, 40),
 			ZIndex = 2,
 		}, {
-			Button = e(FloatingButton, {
-				Activated = self.openSelection,
-				Image = Assets.preview,
-				ImageSize = UDim.new(0, 24),
-				Size = UDim.new(0, 40),
-			}),
+			-- Button = e(FloatingButton, {
+			-- 	Activated = self.openSelection,
+			-- 	Image = Assets.preview,
+			-- 	ImageSize = UDim.new(0, 24),
+			-- 	Size = UDim.new(0, 40),
+			-- }),
 		}),
 
 		ExpandButton = e("Frame", {
@@ -228,12 +229,12 @@ function Preview:render()
 			Size = UDim2.fromOffset(40, 40),
 			ZIndex = 2,
 		}, {
-			Button = e(FloatingButton, {
-				Activated = self.expandSelection,
-				Image = "rbxasset://textures/ui/VR/toggle2D.png",
-				ImageSize = UDim.new(0, 24),
-				Size = UDim.new(0, 40),
-			}),
+			-- Button = e(FloatingButton, {
+			-- 	Activated = self.expandSelection,
+			-- 	Image = "rbxasset://textures/ui/VR/toggle2D.png",
+			-- 	ImageSize = UDim.new(0, 24),
+			-- 	Size = UDim.new(0, 40),
+			-- }),
 		}),
 
 		TrackRemoved = selectedStory and e(EventConnection, {
